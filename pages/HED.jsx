@@ -12,14 +12,14 @@ const HED = () => {
 
 
          <div>
-            {/* <Router> */}
+         
               <Routes>
                   <Route path="/" element={<VL/>}></Route>
                   <Route path="/vl" element={<VL/>}></Route>
                   <Route path="/ms" element={<MS/>}></Route>
               </Routes>
               
-            {/* </Router> */}
+          
          </div>
       </div>
     </>
