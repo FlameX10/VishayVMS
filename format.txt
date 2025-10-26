@@ -1,0 +1,3 @@
+HED-> host employee dashboard 
+MS->meeting status
+VL-> visitor list
