@@ -7,7 +7,7 @@ const menuItems = [
   { name: "Meeting list", icon: Users, path: "/smd/ml" },
   { name: "Visitor Management", icon: Clock, path: "/smd/vm" },
   { name: "Pending Approval", icon: Users, path: "/smd/pa" },
-  { name: "Reports", icon: Users, path: "/smd/rp" },
+  { name: "Report", icon: Users, path: "/smd/rp" },
 ];
 
 const Sidebar = () => {

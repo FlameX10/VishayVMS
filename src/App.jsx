@@ -5,6 +5,7 @@ import SMD from '../pages/SMD.jsx'
 import SGD from '../pages/SGD.jsx'
 import PAD from '../pages/PAD.jsx'
 import { Routes, Route} from 'react-router-dom'
+import VRF from '../pages/VRF.jsx'
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
       <Route path="/hed/*" element={<HED/>}/>
       <Route path="/pad/*" element={<PAD/>}/>
       <Route path="/smd/*" element={<SMD/>}/>
-       <Route path="/sgd/*" element={<SGD/>}/>
+      <Route path="/sgd/*" element={<SGD/>}/>
+      <Route path="/vrf/*" element={<VRF/>}/>
     </Routes>
 
   )

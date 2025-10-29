@@ -1,12 +1,10 @@
 import React from 'react'
 import {Routes,Route} from 'react-router-dom'
 import Sidebar from '../components/SM/Sidebar';
-import ML from '../components/SM/ML';
-import VM from '../components/SM/VM';
-// import I from '../components/SM/I';
+import ML from '../components/SM/ML'
+import VM from '../components/SM/VM'
+import PA from '../components/SM/PA'
 import RP from '../components/SM/RP'
-import PA from '../components/SM/PA';
-
 const SMD =()=>{
   return(
     <>
@@ -17,10 +15,13 @@ const SMD =()=>{
         <div>
             
             <Routes>
-                <Route path="/smd/ml" element={<ML />} />
-                <Route path="/smd/vm" element={<VM />} />
-                <Route path="/smd/pa" element={<PA />} />
-                <Route path="/smd/rp" element={<RP />} />
+                 
+                
+                 <Route path='/' element={<ML/>}></Route>
+                 <Route path='/ml' element={<ML/>}></Route>
+                 <Route path='/vm' element={<VM/>}></Route>
+                 <Route path='/pa' element={<PA/>}></Route>
+                 <Route path='/rp' element={<RP/>}></Route>
             </Routes>
         </div>
     </div>
