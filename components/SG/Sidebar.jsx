@@ -4,10 +4,8 @@ import { Users, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const menuItems = [
-  { name: "Visitors list", icon: Users, path: "/hed/vl" },
-  { name: "Meeting Status", icon: Clock, path: "/hed/ms" },
-  { name: "Initiating visitor list", icon: Users, path: "/hed/initiate" },
-  { name: "Visitors list 2", icon: Users, path: "/hed/visitors2" },
+  { name: "Visitor Log", icon: Users, path: "/sgd/vlog" },
+  { name: "ID Verification", icon: Clock, path: "/sgd/idv" },
 ];
 
 const Sidebar = () => {

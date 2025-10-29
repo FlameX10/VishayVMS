@@ -3,3 +3,4 @@ MS->meeting status
 VL-> visitor list
 
 
+VLOG->vistor log in that both present visitor list of that day and updation

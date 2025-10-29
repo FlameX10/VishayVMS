@@ -8,10 +8,10 @@ const HED = () => {
     <>
       <div className='flex flex-row h-screen'>
         {/* yaha mene div ko h-screen karke full screen ki height di hai */}
-          <div className='m-4 w-64'><Sidebar/></div>
+          <div className='w-65 bg-blue-400 p-3'><Sidebar/></div>
 
 
-         <div>
+         <div >
          
               <Routes>
                   <Route path="/" element={<VL/>}></Route>

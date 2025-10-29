@@ -4,10 +4,10 @@ import { Users, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const menuItems = [
-  { name: "Visitors list", icon: Users, path: "/hed/vl" },
-  { name: "Meeting Status", icon: Clock, path: "/hed/ms" },
-  { name: "Initiating visitor list", icon: Users, path: "/hed/initiate" },
-  { name: "Visitors list 2", icon: Users, path: "/hed/visitors2" },
+  { name: "EMP Request", icon: Users, path: "/pad/empr/" },
+  { name: "EMP Dashboard", icon: Clock, path: "/pad/empd/" },
+  { name: "Visitors Request", icon: Users, path: "/pad/vr/" },
+  { name: "POP Approval", icon: Users, path: "/pad/popa/" },
 ];
 
 const Sidebar = () => {
