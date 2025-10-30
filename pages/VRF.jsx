@@ -51,9 +51,9 @@ export default function VRF() {
         return;
       }
       
-      // Check file size (10MB = 10 * 1024 * 1024 bytes)
-      if (file.size > 10 * 1024 * 1024) {
-        alert('File size must be less than 10 MB');
+      // Check file size (50MB = 50 * 1024 * 1024 bytes)
+      if (file.size > 50 * 1024 * 1024) {
+        alert('File size must be less than 50MB');
         e.target.value = '';
         return;
       }
@@ -244,7 +244,7 @@ export default function VRF() {
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
               <p className="text-xs text-gray-600 mt-1">
-                Allowed: PDF, DOC, DOCX, PNG, JPG, JPEG (Max 10MB)
+                Allowed: PDF, DOC, DOCX, PNG, JPG, JPEG (Max 50MB)
               </p>
             </div>
           </div>
