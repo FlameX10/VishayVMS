@@ -9,7 +9,7 @@ const HED = () => {
     <>
       <div className='flex flex-row h-screen'>
         {/* Sidebar with fixed width */}
-        <div className='w-65 bg-blue-400 p-3'>
+        <div className='w-65 m-4'>
           <Sidebar/>
         </div>
 
