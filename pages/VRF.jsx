@@ -15,10 +15,12 @@ export default function VRF() {
     visitFrom: '',
     visitTo: '',
     purposeOfVisit: '',
+    otherPurpose: '',
     visitorType: '',
     visitorCategory: '',
     otherCategory: '',
-    electronics: []
+    electronics: [],
+    otherElectronics: ''
   });
 
   const handleInputChange = (e) => {
@@ -30,9 +32,35 @@ export default function VRF() {
   };
 
   const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Allowed file types
+      const allowedTypes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'image/png',
+        'image/jpeg',
+        'image/jpg'
+      ];
+      
+      // Check file type
+      if (!allowedTypes.includes(file.type)) {
+        alert('Invalid file type. Please upload PDF, DOC, DOCX, PNG, JPG, or JPEG only.');
+        e.target.value = '';
+        return;
+      }
+      
+      // Check file size (10MB = 10 * 1024 * 1024 bytes)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File size must be less than 10 MB');
+        e.target.value = '';
+        return;
+      }
+    }
     setFormData(prev => ({
       ...prev,
-      idProofFile: e.target.files[0]
+      idProofFile: file
     }));
   };
 
@@ -54,19 +82,21 @@ export default function VRF() {
 
   const isStudent = formData.designation === 'student';
   const showOtherCategory = formData.visitorCategory === 'other';
+  const showOtherPurpose = formData.purposeOfVisit === 'other';
+  const showOtherElectronics = formData.electronics.includes('other');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-700 to-indigo-800 p-5">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-10">
-        <h1 className="text-3xl font-bold text-purple-600 text-center mb-8">
+    <div className="min-h-screen bg-white p-5">
+      <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl shadow-2xl p-8 md:p-10">
+        <h1 className="text-3xl font-bold text-blue-700 text-center mb-8">
           Visitor Registration Form
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-6 text-black">
           {/* Name and Designation */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -75,12 +105,12 @@ export default function VRF() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Designation <span className="text-red-500">*</span>
               </label>
               <select
@@ -88,7 +118,7 @@ export default function VRF() {
                 value={formData.designation}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               >
                 <option value="">Select Designation</option>
                 <option value="student">Student</option>
@@ -104,7 +134,7 @@ export default function VRF() {
           {/* Mobile and Department */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Mobile Number <span className="text-red-500">*</span>
               </label>
               <input
@@ -114,12 +144,12 @@ export default function VRF() {
                 onChange={handleInputChange}
                 pattern="[0-9]{10}"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Department
               </label>
               <input
@@ -127,7 +157,7 @@ export default function VRF() {
                 name="department"
                 value={formData.department}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
           </div>
@@ -135,7 +165,7 @@ export default function VRF() {
           {/* Company or College Section */}
           {!isStudent ? (
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Company Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -144,13 +174,13 @@ export default function VRF() {
                 value={formData.companyName}
                 onChange={handleInputChange}
                 required={!isStudent}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-black mb-2">
                   College Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -159,11 +189,11 @@ export default function VRF() {
                   value={formData.collegeName}
                   onChange={handleInputChange}
                   required={isStudent}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-black mb-2">
                   Course <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -172,7 +202,7 @@ export default function VRF() {
                   value={formData.course}
                   onChange={handleInputChange}
                   required={isStudent}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
                 />
               </div>
             </div>
@@ -181,7 +211,7 @@ export default function VRF() {
           {/* ID Proof */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Identity Proof Type <span className="text-red-500">*</span>
               </label>
               <select
@@ -189,7 +219,7 @@ export default function VRF() {
                 value={formData.idProofType}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               >
                 <option value="">Select ID Proof</option>
                 <option value="aadhar">Aadhar Card</option>
@@ -203,22 +233,25 @@ export default function VRF() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Upload Identity Proof <span className="text-red-500">*</span>
               </label>
               <input
                 type="file"
                 onChange={handleFileChange}
-                accept="image/*,.pdf"
+                accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
+              <p className="text-xs text-gray-600 mt-1">
+                Allowed: PDF, DOC, DOCX, PNG, JPG, JPEG (Max 10MB)
+              </p>
             </div>
           </div>
 
           {/* Visit Date and Time */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-black mb-2">
               Visit Date <span className="text-red-500">*</span>
             </label>
             <input
@@ -227,13 +260,13 @@ export default function VRF() {
               value={formData.visitDate}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Time (From) <span className="text-red-500">*</span>
               </label>
               <input
@@ -242,12 +275,12 @@ export default function VRF() {
                 value={formData.visitFrom}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Time (To) <span className="text-red-500">*</span>
               </label>
               <input
@@ -256,7 +289,7 @@ export default function VRF() {
                 value={formData.visitTo}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
           </div>
@@ -264,7 +297,7 @@ export default function VRF() {
           {/* Purpose and Type */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Purpose of Visit <span className="text-red-500">*</span>
               </label>
               <select
@@ -272,7 +305,7 @@ export default function VRF() {
                 value={formData.purposeOfVisit}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               >
                 <option value="">Select Purpose</option>
                 <option value="meeting">Business Meeting</option>
@@ -287,7 +320,7 @@ export default function VRF() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Type of Visitor <span className="text-red-500">*</span>
               </label>
               <select
@@ -295,7 +328,7 @@ export default function VRF() {
                 value={formData.visitorType}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               >
                 <option value="">Select Type</option>
                 <option value="individual">Individual</option>
@@ -307,9 +340,26 @@ export default function VRF() {
             </div>
           </div>
 
+          {/* Other Purpose */}
+          {showOtherPurpose && (
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">
+                Please Specify Purpose <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="otherPurpose"
+                value={formData.otherPurpose}
+                onChange={handleInputChange}
+                required={showOtherPurpose}
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
+              />
+            </div>
+          )}
+
           {/* Category */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-black mb-2">
               Category of Visitor <span className="text-red-500">*</span>
             </label>
             <select
@@ -317,7 +367,7 @@ export default function VRF() {
               value={formData.visitorCategory}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
             >
               <option value="">Select Category</option>
               <option value="client">Client</option>
@@ -332,7 +382,7 @@ export default function VRF() {
           {/* Other Category */}
           {showOtherCategory && (
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-black mb-2">
                 Please Specify Category <span className="text-red-500">*</span>
               </label>
               <input
@@ -341,14 +391,14 @@ export default function VRF() {
                 value={formData.otherCategory}
                 onChange={handleInputChange}
                 required={showOtherCategory}
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
           )}
 
           {/* Electronics */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-3">
+            <label className="block text-sm font-semibold text-black mb-3">
               Electronics Being Carried
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -368,22 +418,39 @@ export default function VRF() {
                     value={item.value}
                     checked={formData.electronics.includes(item.value)}
                     onChange={handleCheckboxChange}
-                    className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <span className="text-sm text-gray-700">{item.label}</span>
+                  <span className="text-sm text-black">{item.label}</span>
                 </label>
               ))}
             </div>
           </div>
 
+          {/* Other Electronics */}
+          {showOtherElectronics && (
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">
+                Please Specify Other Electronics <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="otherElectronics"
+                value={formData.otherElectronics}
+                onChange={handleInputChange}
+                required={showOtherElectronics}
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
+              />
+            </div>
+          )}
+
           {/* Submit Button */}
           <button
-            type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 text-white py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+            onClick={handleSubmit}
+            className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 hover:shadow-lg transition-all duration-200"
           >
             Submit Registration
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
