@@ -32,7 +32,7 @@ const Login = () => {
     setAlert(null);
 
     try {
-      const res = await axios.post("https://vms-backend-bqzb.onrender.com/checkUser", { email });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/checkUser`, { email });
 
       if (res.data.status === "pending") {
         setAlert({ type: "info", message: res.data.message });
@@ -56,11 +56,19 @@ const Login = () => {
     setAlert(null);
 
     try {
-      const res = await axios.post("https://vms-backend-bqzb.onrender.com/verifyPassword", { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/verifyPassword`, { email, password });
       setAlert({ type: "success", message: "Login successful!" });
 
       console.log("Logged in user:", res.data.user);
+
+      // Store token in localStorage
+      localStorage.setItem("authToken", res.data.token);
+
+      // Optionally store user data
+      localStorage.setItem("user", JSON.stringify(res.data.user));
       // Save user data to localStorage or navigate
+
+      //window.location.href = "/dashboard";
     } catch (err) {
       console.error(err);
       setAlert({ type: "error", message: err.response?.data?.message || "Login failed" });
