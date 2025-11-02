@@ -109,7 +109,7 @@ export default function VRF() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="block text-sm font-semibold text-black mb-2">
                 Designation <span className="text-red-500">*</span>
               </label>
@@ -128,7 +128,7 @@ export default function VRF() {
                 <option value="consultant">Consultant</option>
                 <option value="other">Other</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           {/* Mobile and Department */}
@@ -249,7 +249,7 @@ export default function VRF() {
             </div>
           </div>
 
-          {/* Visit Date and Time */}
+          {/* Visit Date and Time
           <div>
             <label className="block text-sm font-semibold text-black mb-2">
               Visit Date <span className="text-red-500">*</span>
@@ -292,7 +292,7 @@ export default function VRF() {
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Purpose and Type */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -396,7 +396,7 @@ export default function VRF() {
             </div>
           )}
 
-          {/* Electronics */}
+          {/* Electronics
           <div>
             <label className="block text-sm font-semibold text-black mb-3">
               Electronics Being Carried
@@ -426,7 +426,7 @@ export default function VRF() {
             </div>
           </div>
 
-          {/* Other Electronics */}
+          /* Other Electronics 
           {showOtherElectronics && (
             <div>
               <label className="block text-sm font-semibold text-black mb-2">
@@ -441,7 +441,7 @@ export default function VRF() {
                 className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
               />
             </div>
-          )}
+          )} */}
 
           {/* Submit Button */}
           <button
