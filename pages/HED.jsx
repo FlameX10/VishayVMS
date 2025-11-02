@@ -7,20 +7,20 @@ import MS from '../components/HE/MS'
 const HED = () => {
   return (
     <>
-      <div className='flex flex-row h-screen'>
+      <div className="flex h-screen overflow-hidden bg-gray-50">
         {/* Sidebar with fixed width */}
-        <div className='w-65 m-4'>
-          <Sidebar/>
-        </div>
+        <aside className="flex-shrink-0">
+        <Sidebar />
+        </aside>
 
         {/* Main content area - takes remaining space */}
-        <div className='flex-1 overflow-auto'>
+         <main className="flex-1 overflow-y-auto">
           <Routes>
             <Route path="/" element={<VL/>}></Route>
             <Route path="/vl" element={<VL/>}></Route>
             <Route path="/ms" element={<MS/>}></Route>
           </Routes>
-        </div>
+        </main>
       </div>
     </>
   )
