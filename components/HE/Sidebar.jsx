@@ -26,7 +26,7 @@ const Sidebar = () => {
       {/* Header Section */}
       <div className="px-6 py-8 border-b border-teal-600/50">
         <h1 className="text-2xl font-bold tracking-tight text-white">
-          PROCESS ADMIN
+          HOST EMPLOYEE
         </h1>
         <div className="mt-2 h-1 w-16 bg-teal-400 rounded-full"></div>
       </div>
