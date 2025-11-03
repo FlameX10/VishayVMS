@@ -4,18 +4,17 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid,
   Button,
   TextField,
   Avatar,
   Stack,
   Chip,
-  Divider,
   Paper,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
+  Grid,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -38,7 +37,7 @@ const IDV = () => {
       phone: "+1 234-567-8900",
       company: "Tech Solutions Inc.",
       visit_date: "2025-11-05",
-      id_image_url: "https://via.placeholder.com/400x250/8b5cf6/ffffff?text=ID+Document",
+      id_image_url: "https://via.placeholder.com/400x250/2563eb/ffffff?text=ID+Document",
     },
     {
       visitor_id: "V002",
@@ -47,7 +46,7 @@ const IDV = () => {
       phone: "+1 345-678-9012",
       company: "Marketing Pro",
       visit_date: "2025-11-06",
-      id_image_url: "https://via.placeholder.com/400x250/6366f1/ffffff?text=Passport",
+      id_image_url: "https://via.placeholder.com/400x250/1d4ed8/ffffff?text=Passport",
     },
     {
       visitor_id: "V003",
@@ -56,7 +55,7 @@ const IDV = () => {
       phone: "+1 456-789-0123",
       company: "Global Consulting",
       visit_date: "2025-11-05",
-      id_image_url: "https://via.placeholder.com/400x250/8b5cf6/ffffff?text=ID+Card",
+      id_image_url: "https://via.placeholder.com/400x250/2563eb/ffffff?text=ID+Card",
     },
   ]);
 
@@ -65,14 +64,12 @@ const IDV = () => {
 
   const handleVerify = (visitor) => {
     alert(`ID verified for ${visitor.full_name}`);
-    // Remove from list after verification
     setVisitors(visitors.filter(v => v.visitor_id !== visitor.visitor_id));
   };
 
   const handleReject = (visitorId) => {
     const visitor = visitors.find(v => v.visitor_id === visitorId);
     alert(`ID verification rejected for ${visitor?.full_name || 'visitor'}`);
-    // Remove from list after rejection
     setVisitors(visitors.filter(v => v.visitor_id !== visitorId));
   };
 
@@ -124,9 +121,9 @@ const IDV = () => {
           p: 3,
           mb: 4,
           borderRadius: "12px",
-          background: "linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)",
+          backgroundColor: "#2563eb",
           color: "#ffffff",
-          boxShadow: "0 4px 6px -1px rgba(139, 92, 246, 0.3)",
+          boxShadow: "0 4px 6px -1px rgba(37, 99, 235, 0.3)",
         }}
       >
         <Stack direction="row" alignItems="center" spacing={2}>
@@ -165,7 +162,7 @@ const IDV = () => {
             backgroundColor: "#ffffff",
           }}
         >
-          <CheckCircleIcon sx={{ fontSize: 64, color: "#8b5cf6", mb: 2 }} />
+          <CheckCircleIcon sx={{ fontSize: 64, color: "#2563eb", mb: 2 }} />
           <Typography variant="h6" fontWeight="600" color="#111827" gutterBottom>
             All Verified!
           </Typography>
@@ -174,207 +171,200 @@ const IDV = () => {
           </Typography>
         </Paper>
       ) : (
-        <Grid container spacing={3}>
+        <Stack spacing={3}>
           {visitors.map((visitor, index) => (
-            <Grid item xs={12} md={6} lg={4} key={visitor.visitor_id}>
-              <Card 
-                elevation={0}
-                sx={{ 
-                  borderRadius: "12px", 
-                  border: "1px solid #e5e7eb",
-                  backgroundColor: "#ffffff",
-                  transition: "all 0.3s ease",
-                  position: "relative",
-                  overflow: "visible",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0 12px 24px -8px rgba(139, 92, 246, 0.25)",
-                    borderColor: "#8b5cf6",
-                  }
+            <Card 
+              key={visitor.visitor_id}
+              elevation={0}
+              sx={{ 
+                borderRadius: "12px", 
+                border: "1px solid #e5e7eb",
+                backgroundColor: "#ffffff",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  boxShadow: "0 4px 12px rgba(37, 99, 235, 0.15)",
+                  borderColor: "#2563eb",
+                }
+              }}
+            >
+              {/* Top Color Bar */}
+              <Box
+                sx={{
+                  height: "4px",
+                  backgroundColor: "#2563eb",
+                  borderTopLeftRadius: "12px",
+                  borderTopRightRadius: "12px",
                 }}
-              >
-                {/* Top Color Bar */}
-                <Box
-                  sx={{
-                    height: "4px",
-                    background: "linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%)",
-                    borderTopLeftRadius: "12px",
-                    borderTopRightRadius: "12px",
-                  }}
-                />
+              />
 
-                <CardContent sx={{ p: 3 }}>
-                  {/* Visitor Header */}
-                  <Stack direction="row" spacing={2} alignItems="flex-start" mb={3}>
-                    <Avatar 
-                      sx={{ 
-                        bgcolor: "#8b5cf6",
-                        width: 56,
-                        height: 56,
-                        boxShadow: "0 4px 6px -1px rgba(139, 92, 246, 0.3)",
-                      }}
-                    >
-                      <PersonIcon sx={{ fontSize: 32 }} />
-                    </Avatar>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography 
-                        variant="h6" 
-                        fontWeight="700"
-                        sx={{ 
-                          color: "#111827",
-                          mb: 0.5,
-                          fontSize: "1.1rem"
-                        }}
-                      >
-                        {visitor.full_name || "Visitor"}
-                      </Typography>
-                      <Chip
-                        label="Pending Verification"
-                        size="small"
-                        sx={{
-                          backgroundColor: "#fef3c7",
-                          color: "#92400e",
-                          fontWeight: "600",
-                          fontSize: "0.75rem",
-                          height: "24px",
-                          borderRadius: "6px",
-                        }}
-                      />
-                    </Box>
-                  </Stack>
-
-                  {/* Visitor Details */}
-                  <Stack spacing={2} mb={3}>
-                    {/* ID Number */}
-                    <Box 
-                      sx={{ 
-                        display: "flex", 
-                        alignItems: "center", 
-                        gap: 1.5,
-                        p: 2,
-                        backgroundColor: "#f9fafb",
-                        borderRadius: "8px",
-                        border: "1px solid #f3f4f6"
-                      }}
-                    >
-                      <FingerprintIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
-                      <Box sx={{ flex: 1 }}>
-                        <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
-                          ID Number
-                        </Typography>
-                        <Typography 
-                          variant="body2" 
+              <CardContent sx={{ p: 3 }}>
+                <Grid container spacing={3}>
+                  {/* Left Section - Visitor Info */}
+                  <Grid item xs={12} md={4}>
+                    <Stack spacing={2}>
+                      {/* Visitor Header */}
+                      <Stack direction="row" spacing={2} alignItems="center">
+                        <Avatar 
                           sx={{ 
-                            color: "#374151",
-                            fontSize: "0.875rem",
-                            fontWeight: "600"
+                            bgcolor: "#2563eb",
+                            width: 56,
+                            height: 56,
+                            boxShadow: "0 4px 6px -1px rgba(37, 99, 235, 0.3)",
                           }}
                         >
-                          {visitor.id_number || "Not provided"}
-                        </Typography>
-                      </Box>
-                    </Box>
-
-                    {/* Phone */}
-                    {visitor.phone && (
-                      <Box 
-                        sx={{ 
-                          display: "flex", 
-                          alignItems: "center", 
-                          gap: 1.5,
-                          p: 2,
-                          backgroundColor: "#f9fafb",
-                          borderRadius: "8px",
-                          border: "1px solid #f3f4f6"
-                        }}
-                      >
-                        <PhoneIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
-                        <Box sx={{ flex: 1 }}>
-                          <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
-                            Phone Number
-                          </Typography>
+                          <PersonIcon sx={{ fontSize: 32 }} />
+                        </Avatar>
+                        <Box>
                           <Typography 
-                            variant="body2" 
+                            variant="h6" 
+                            fontWeight="700"
                             sx={{ 
-                              color: "#374151",
-                              fontSize: "0.875rem",
-                              fontWeight: "600"
+                              color: "#111827",
+                              mb: 0.5,
+                              fontSize: "1.1rem"
                             }}
                           >
-                            {visitor.phone}
+                            {visitor.full_name || "Visitor"}
                           </Typography>
-                        </Box>
-                      </Box>
-                    )}
-
-                    {/* Company */}
-                    {visitor.company && (
-                      <Box 
-                        sx={{ 
-                          display: "flex", 
-                          alignItems: "center", 
-                          gap: 1.5,
-                          p: 2,
-                          backgroundColor: "#f9fafb",
-                          borderRadius: "8px",
-                          border: "1px solid #f3f4f6"
-                        }}
-                      >
-                        <BusinessIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
-                        <Box sx={{ flex: 1 }}>
-                          <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
-                            Company
-                          </Typography>
-                          <Typography 
-                            variant="body2" 
-                            sx={{ 
-                              color: "#374151",
-                              fontSize: "0.875rem",
-                              fontWeight: "600"
+                          <Chip
+                            label="Pending"
+                            size="small"
+                            sx={{
+                              backgroundColor: "#fef3c7",
+                              color: "#92400e",
+                              fontWeight: "600",
+                              fontSize: "0.75rem",
+                              height: "24px",
+                              borderRadius: "6px",
                             }}
-                          >
-                            {visitor.company}
-                          </Typography>
+                          />
                         </Box>
-                      </Box>
-                    )}
+                      </Stack>
 
-                    {/* Visit Date */}
-                    {visitor.visit_date && (
-                      <Box 
-                        sx={{ 
-                          display: "flex", 
-                          alignItems: "center", 
-                          gap: 1.5,
-                          p: 2,
-                          backgroundColor: "#f9fafb",
-                          borderRadius: "8px",
-                          border: "1px solid #f3f4f6"
-                        }}
-                      >
-                        <CalendarTodayIcon sx={{ color: "#8b5cf6", fontSize: 20 }} />
-                        <Box sx={{ flex: 1 }}>
-                          <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
-                            Visit Date
-                          </Typography>
-                          <Typography 
-                            variant="body2" 
-                            sx={{ 
-                              color: "#374151",
-                              fontSize: "0.875rem",
-                              fontWeight: "600"
-                            }}
-                          >
-                            {new Date(visitor.visit_date).toLocaleDateString()}
-                          </Typography>
+                      {/* Visitor Details */}
+                      <Stack spacing={1.5}>
+                        {/* ID Number */}
+                        <Box 
+                          sx={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            gap: 1.5,
+                            p: 1.5,
+                            backgroundColor: "#f9fafb",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <FingerprintIcon sx={{ color: "#2563eb", fontSize: 20 }} />
+                          <Box>
+                            <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
+                              ID Number
+                            </Typography>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                color: "#374151",
+                                fontSize: "0.875rem",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {visitor.id_number || "Not provided"}
+                            </Typography>
+                          </Box>
                         </Box>
-                      </Box>
-                    )}
-                  </Stack>
 
-                  {/* ID Document Image */}
-                  {visitor.id_image_url && (
-                    <Box sx={{ mb: 3 }}>
+                        {/* Phone */}
+                        <Box 
+                          sx={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            gap: 1.5,
+                            p: 1.5,
+                            backgroundColor: "#f9fafb",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <PhoneIcon sx={{ color: "#2563eb", fontSize: 20 }} />
+                          <Box>
+                            <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
+                              Phone
+                            </Typography>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                color: "#374151",
+                                fontSize: "0.875rem",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {visitor.phone}
+                            </Typography>
+                          </Box>
+                        </Box>
+
+                        {/* Company */}
+                        <Box 
+                          sx={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            gap: 1.5,
+                            p: 1.5,
+                            backgroundColor: "#f9fafb",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <BusinessIcon sx={{ color: "#2563eb", fontSize: 20 }} />
+                          <Box>
+                            <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
+                              Company
+                            </Typography>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                color: "#374151",
+                                fontSize: "0.875rem",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {visitor.company}
+                            </Typography>
+                          </Box>
+                        </Box>
+
+                        {/* Visit Date */}
+                        <Box 
+                          sx={{ 
+                            display: "flex", 
+                            alignItems: "center", 
+                            gap: 1.5,
+                            p: 1.5,
+                            backgroundColor: "#f9fafb",
+                            borderRadius: "8px",
+                          }}
+                        >
+                          <CalendarTodayIcon sx={{ color: "#2563eb", fontSize: 20 }} />
+                          <Box>
+                            <Typography variant="caption" sx={{ color: "#6b7280", fontSize: "0.7rem" }}>
+                              Visit Date
+                            </Typography>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ 
+                                color: "#374151",
+                                fontSize: "0.875rem",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {new Date(visitor.visit_date).toLocaleDateString()}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Stack>
+                    </Stack>
+                  </Grid>
+
+                  {/* Middle Section - ID Document Image */}
+                  <Grid item xs={12} md={4}>
+                    <Box>
                       <Typography 
                         variant="caption" 
                         sx={{ 
@@ -391,7 +381,7 @@ const IDV = () => {
                         onClick={() => handleImageClick(visitor.id_image_url)}
                         sx={{
                           width: "100%",
-                          height: "180px",
+                          height: "280px",
                           borderRadius: "8px",
                           overflow: "hidden",
                           border: "2px solid #e5e7eb",
@@ -400,8 +390,8 @@ const IDV = () => {
                           backgroundColor: "#f9fafb",
                           transition: "all 0.3s ease",
                           "&:hover": {
-                            borderColor: "#8b5cf6",
-                            boxShadow: "0 4px 6px -1px rgba(139, 92, 246, 0.3)",
+                            borderColor: "#2563eb",
+                            boxShadow: "0 4px 6px -1px rgba(37, 99, 235, 0.3)",
                           }
                         }}
                       >
@@ -420,115 +410,140 @@ const IDV = () => {
                             bottom: 0,
                             left: 0,
                             right: 0,
-                            backgroundColor: "rgba(0,0,0,0.6)",
+                            backgroundColor: "rgba(0,0,0,0.7)",
                             color: "white",
-                            padding: "8px",
+                            padding: "10px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             gap: 1,
                           }}
                         >
-                          <ImageIcon sx={{ fontSize: 16 }} />
+                          <ImageIcon sx={{ fontSize: 18 }} />
                           <Typography variant="caption" fontWeight="600">
                             Click to view full size
                           </Typography>
                         </Box>
                       </Box>
                     </Box>
-                  )}
+                  </Grid>
 
-                  <Divider sx={{ mb: 3 }} />
+                  {/* Right Section - Actions */}
+                  <Grid item xs={12} md={4}>
+                    <Stack spacing={2} sx={{ height: "100%" }}>
+                      <Box>
+                        <Typography 
+                          variant="caption" 
+                          sx={{ 
+                            color: "#6b7280", 
+                            fontSize: "0.75rem",
+                            fontWeight: "600",
+                            mb: 1,
+                            display: "block"
+                          }}
+                        >
+                          Verification Actions
+                        </Typography>
+                      </Box>
 
-                  {/* Editable ID Number Field */}
-                  <TextField
-                    fullWidth
-                    label="ID Number"
-                    variant="outlined"
-                    size="small"
-                    value={visitor.id_number || ""}
-                    onChange={(e) => {
-                      const updatedVisitors = [...visitors];
-                      updatedVisitors[index].id_number = e.target.value;
-                      setVisitors(updatedVisitors);
-                    }}
-                    InputProps={{
-                      startAdornment: <BadgeIcon sx={{ color: "#9ca3af", mr: 1, fontSize: 20 }} />,
-                    }}
-                    sx={{ 
-                      mb: 3,
-                      "& .MuiOutlinedInput-root": {
-                        borderRadius: "8px",
-                        backgroundColor: "#f9fafb",
-                        "&:hover fieldset": {
-                          borderColor: "#8b5cf6",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#8b5cf6",
-                          borderWidth: "2px",
-                        },
-                        "&.Mui-focused": {
-                          backgroundColor: "#ffffff",
-                        }
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "#8b5cf6",
-                        fontWeight: "600",
-                      },
-                    }}
-                  />
+                      {/* Editable ID Number Field */}
+                      <TextField
+                        fullWidth
+                        label="Verify ID Number"
+                        variant="outlined"
+                        size="small"
+                        value={visitor.id_number || ""}
+                        onChange={(e) => {
+                          const updatedVisitors = [...visitors];
+                          updatedVisitors[index].id_number = e.target.value;
+                          setVisitors(updatedVisitors);
+                        }}
+                        InputProps={{
+                          startAdornment: <BadgeIcon sx={{ color: "#9ca3af", mr: 1, fontSize: 20 }} />,
+                        }}
+                        sx={{ 
+                          "& .MuiOutlinedInput-root": {
+                            borderRadius: "8px",
+                            backgroundColor: "#f9fafb",
+                            "&:hover fieldset": {
+                              borderColor: "#2563eb",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#2563eb",
+                              borderWidth: "2px",
+                            },
+                            "&.Mui-focused": {
+                              backgroundColor: "#ffffff",
+                            }
+                          },
+                          "& .MuiInputLabel-root.Mui-focused": {
+                            color: "#2563eb",
+                            fontWeight: "600",
+                          },
+                        }}
+                      />
 
-                  {/* Action Buttons */}
-                  <Stack direction="row" spacing={1.5}>
-                    <Button
-                      variant="contained"
-                      onClick={() => handleVerify(visitor)}
-                      fullWidth
-                      startIcon={<CheckCircleIcon />}
-                      sx={{
-                        backgroundColor: "#8b5cf6",
-                        color: "#ffffff",
-                        textTransform: "none",
-                        fontWeight: "600",
-                        padding: "10px 16px",
-                        borderRadius: "8px",
-                        boxShadow: "0 2px 4px rgba(139, 92, 246, 0.3)",
-                        "&:hover": {
-                          backgroundColor: "#7c3aed",
-                          boxShadow: "0 4px 8px rgba(139, 92, 246, 0.4)",
-                        },
-                      }}
-                    >
-                      Verify
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleReject(visitor.visitor_id)}
-                      fullWidth
-                      startIcon={<CancelIcon />}
-                      sx={{
-                        borderColor: "#ef4444",
-                        borderWidth: "2px",
-                        color: "#ef4444",
-                        textTransform: "none",
-                        fontWeight: "600",
-                        padding: "10px 16px",
-                        borderRadius: "8px",
-                        "&:hover": {
-                          borderColor: "#dc2626",
-                          borderWidth: "2px",
-                          backgroundColor: "#fef2f2",
-                        },
-                      }}
-                    >
-                      Reject
-                    </Button>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
+                      <Box 
+                        sx={{ 
+                          flex: 1,
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          gap: 2,
+                        }}
+                      >
+                        {/* Action Buttons */}
+                        <Button
+                          variant="contained"
+                          onClick={() => handleVerify(visitor)}
+                          fullWidth
+                          startIcon={<CheckCircleIcon />}
+                          sx={{
+                            backgroundColor: "#2563eb",
+                            color: "#ffffff",
+                            textTransform: "none",
+                            fontWeight: "600",
+                            padding: "12px 16px",
+                            borderRadius: "8px",
+                            boxShadow: "0 2px 4px rgba(37, 99, 235, 0.3)",
+                            "&:hover": {
+                              backgroundColor: "#1d4ed8",
+                              boxShadow: "0 4px 8px rgba(37, 99, 235, 0.4)",
+                            },
+                          }}
+                        >
+                          Verify ID
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          onClick={() => handleReject(visitor.visitor_id)}
+                          fullWidth
+                          startIcon={<CancelIcon />}
+                          sx={{
+                            borderColor: "#ef4444",
+                            borderWidth: "2px",
+                            color: "#ef4444",
+                            textTransform: "none",
+                            fontWeight: "600",
+                            padding: "12px 16px",
+                            borderRadius: "8px",
+                            "&:hover": {
+                              borderColor: "#dc2626",
+                              borderWidth: "2px",
+                              backgroundColor: "#fef2f2",
+                            },
+                          }}
+                        >
+                          Reject
+                        </Button>
+                      </Box>
+                    </Stack>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           ))}
-        </Grid>
+        </Stack>
       )}
 
       {/* Image Preview Dialog */}
@@ -572,12 +587,12 @@ const IDV = () => {
             onClick={handleCloseImageDialog}
             variant="contained"
             sx={{
-              backgroundColor: "#8b5cf6",
+              backgroundColor: "#2563eb",
               textTransform: "none",
               fontWeight: "600",
               borderRadius: "8px",
               "&:hover": {
-                backgroundColor: "#7c3aed",
+                backgroundColor: "#1d4ed8",
               },
             }}
           >
