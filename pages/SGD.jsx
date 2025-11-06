@@ -7,19 +7,20 @@ import VLOG from '../components/SG/VLOG';
 const SGD =()=>{
   return(
     <>
-    <div className='flex flex-row h-screen'>
+    <div className='flex h-screen overflow-hidden bg-gray-50'>
 
-        <div className='m-4 w-64'><Sidebar/></div>
+       <aside className="flex-shrink-0">
+        <Sidebar />
+        </aside>
 
-        <div>
-            
-            <Routes>
-                <Route path="/" element={<IDV />} />
-                <Route path="/idv" element={<IDV />} />
-                <Route path="/vlog" element={<VLOG />} />
-            </Routes>
-        </div>
-    </div>
+        <main className="flex-1 overflow-y-auto">
+          <Routes>
+            <Route path="/" element={<IDV />} />
+            <Route path="/idv" element={<IDV />} />
+            <Route path="/vlog" element={<VLOG />} />
+          </Routes>
+        </main>
+      </div>
     </>
   );
 }

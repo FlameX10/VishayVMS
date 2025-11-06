@@ -8,12 +8,13 @@ import RP from '../components/SM/RP'
 const SMD =()=>{
   return(
     <>
-    <div className='flex flex-row h-screen'>
+    <div className='flex h-screen overflow-hidden bg-gray-50'>
 
-        <div className=' m-4 w-64'><Sidebar/></div>
-
-        <div>
-            
+       <aside className="flex-shrink-0">
+        <Sidebar />
+        </aside>
+       
+             <main className="flex-1 overflow-y-auto">
             <Routes>
                  
                 
@@ -23,7 +24,7 @@ const SMD =()=>{
                  <Route path='/pa' element={<PA/>}></Route>
                  <Route path='/rp' element={<RP/>}></Route>
             </Routes>
-        </div>
+        </main>
     </div>
     </>
   );

@@ -1,35 +1,31 @@
-import React from 'react'
-import {Routes,Route} from 'react-router-dom'
-import Sidebar from '../components/PA/Sidebar'
-import EMPD from '../components/PA/EMPD'
-import EMPR from '../components/PA/EMPR'
-import POPA from '../components/PA/POPA'
-import VR from '../components/PA/VR'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Sidebar from '../components/PA/Sidebar';
+import EMPD from '../components/PA/EMPD';
+import EMPR from '../components/PA/EMPR';
+import POPA from '../components/PA/POPA';
+import VR from '../components/PA/VR';
 
-const PAD = ()=>{
-    return(
-  <>
-    <div className='flex flex-row h-screen'>
+const PAD = () => {
+  return (
+    <div className="flex h-screen overflow-hidden bg-gray-50">
+      {/* Sidebar - Fixed width, no margin, full height */}
+      <aside className="flex-shrink-0">
+        <Sidebar />
+      </aside>
 
-      <div className='m-4 w-64'><Sidebar/></div>
-      
-      <div>
-        {/* iss routes ke andar har dashborad ke pages kon dalo */}
+      {/* Main Content Area - Takes remaining space, scrollable */}
+      <main className="flex-1 overflow-y-auto">
         <Routes>
-            <Route path="/" element={<EMPD/>}></Route>
-            <Route path="/empd" element={<EMPD/>}></Route>
-            <Route path="/empr" element={<EMPR/>}></Route>
-            <Route path="/popa" element={<POPA/>}></Route>
-            <Route path="/vr" element={<VR/>}></Route>
+          <Route path="/" element={<EMPD />} />
+          <Route path="/empd" element={<EMPD />} />
+          <Route path="/empr" element={<EMPR />} />
+          <Route path="/popa" element={<POPA />} />
+          <Route path="/vr" element={<VR />} />
         </Routes>
-      </div>
-
-
+      </main>
     </div>
+  );
+};
 
-
-  </>
-    );
-}
-
-export default PAD
+export default PAD;
