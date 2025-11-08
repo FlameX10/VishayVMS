@@ -34,7 +34,7 @@ export default function VRF() {
     e.preventDefault();
     
     try {
-      const res = await axios.post('http://localhost:3000/visitor/register', formData, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_API_URL}/visitor/register`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
