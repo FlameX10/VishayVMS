@@ -2,7 +2,9 @@ import React from 'react'
 
 const VM = () => {
   return (
-    <div>VM</div>
+    <>
+    <div>Visitor Management</div>
+    </>
   )
 }
 
