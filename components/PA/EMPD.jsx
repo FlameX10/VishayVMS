@@ -120,7 +120,7 @@ export default function ApprovedEmployees() {
         setError('Unauthorized: Please log in.');
         setLoading(false);
         return;
-      }
+      }         
 
       try {
         const decoded = JSON.parse(atob(token.split('.')[1]));

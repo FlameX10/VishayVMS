@@ -106,46 +106,47 @@ export default function VisitorsList({
   };
 
   return (
-    <Box>
-      <Typography variant="h5" gutterBottom>
-        Pending Visitors
-      </Typography>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'sans-serif', width: '100%' }}>
+      <Box sx={{ maxWidth: '100%', px: { xs: 2, sm: 3, lg: 6 }, py: 2 }}>
+        <Typography variant="h4" sx={{ fontWeight: 700, color: '#1f2937', mb: 2 }}>
+          Pending Visitors
+        </Typography>
 
-      <Paper sx={{ p: 2 }}>
+        <Paper sx={{ p: 2, backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}>
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", p: 4 }}>
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Typography color="error">{error}</Typography>
+          <Typography sx={{ color: '#dc2626' }}>{error}</Typography>
         ) : visitors.length === 0 ? (
-          <Typography>No pending visitors.</Typography>
+          <Typography sx={{ color: '#1f2937' }}>No pending visitors.</Typography>
         ) : (
           <TableContainer>
             <Table>
               <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Company</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Created At</TableCell>
-                  <TableCell align="center">Actions</TableCell>
+                <TableRow sx={{ backgroundColor: '#0d9488' }}>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Name</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Type</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Company</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Phone</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Email</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Category</TableCell>
+                  <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Created At</TableCell>
+                  <TableCell align="center" sx={{ color: '#ffffff', fontWeight: 600 }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
 
               <TableBody>
                 {visitors.map((v) => (
-                  <TableRow key={v.visitor_id} hover>
-                    <TableCell>{v.name}</TableCell>
-                    <TableCell>{v.visitor_type}</TableCell>
-                    <TableCell>{v.company_name ?? "-"}</TableCell>
-                    <TableCell>{v.phone ?? "-"}</TableCell>
-                    <TableCell>{v.email ?? "-"}</TableCell>
-                    <TableCell>{v.category_name ?? v.category_id ?? "-"}</TableCell>
-                    <TableCell>
+                  <TableRow key={v.visitor_id} hover sx={{ '&:hover': { backgroundColor: '#f9fafb' } }}>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.name}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.visitor_type}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.company_name ?? "-"}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.phone ?? "-"}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.email ?? "-"}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>{v.category_name ?? v.category_id ?? "-"}</TableCell>
+                    <TableCell sx={{ color: '#1f2937' }}>
                       {v.created_at ? new Date(v.created_at).toLocaleString() : "-"}
                     </TableCell>
                     <TableCell align="center">
@@ -156,17 +157,18 @@ export default function VisitorsList({
                           startIcon={<CheckIcon />}
                           disabled={v.processing}
                           onClick={() => openConfirm(v.visitor_id, "approve")}
+                          sx={{ backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' }, '&:disabled': { backgroundColor: '#d1d5db' } }}
                         >
                           Approve
                         </Button>
 
                         <Button
                           variant="outlined"
-                          color="error"
                           size="small"
                           startIcon={<ClearIcon />}
                           disabled={v.processing}
                           onClick={() => openConfirm(v.visitor_id, "reject")}
+                          sx={{ borderColor: '#dc2626', color: '#dc2626', '&:hover': { borderColor: '#b91c1c', backgroundColor: '#fef2f2' }, '&:disabled': { borderColor: '#d1d5db', color: '#d1d5db' } }}
                         >
                           Reject
                         </Button>
@@ -189,11 +191,14 @@ export default function VisitorsList({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeConfirm}>Cancel</Button>
+          <Button onClick={closeConfirm} sx={{ color: '#374151' }}>Cancel</Button>
           <Button
             onClick={() => performAction(confirm.id, confirm.action)}
             variant="contained"
-            color={confirm.action === "approve" ? "primary" : "error"}
+            sx={confirm.action === "approve" 
+              ? { backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' } }
+              : { backgroundColor: '#dc2626', '&:hover': { backgroundColor: '#b91c1c' } }
+            }
           >
             {confirm.action === "approve" ? "Approve" : "Reject"}
           </Button>
@@ -210,6 +215,7 @@ export default function VisitorsList({
           {snack.message}
         </Alert>
       </Snackbar>
+      </Box>
     </Box>
   );
 }

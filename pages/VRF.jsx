@@ -78,13 +78,14 @@ export default function VRF() {
   const showOtherPurpose = formData.purposeOfVisit === 'other';
 
   return (
-    <div className="min-h-screen bg-white p-5">
-      <div className="max-w-4xl mx-auto bg-gray-50 rounded-2xl shadow-2xl p-8 md:p-10">
-        <h1 className="text-3xl font-bold text-blue-700 text-center mb-8">
-          Visitor Registration Form
-        </h1>
+    <div className="min-h-screen bg-gray-50 font-sans w-full">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-4">
+        <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
+          <h1 className="text-3xl font-bold text-gray-800 text-center mb-8">
+            Visitor Registration Form
+          </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6 text-black">
+          <form onSubmit={handleSubmit} className="space-y-6 text-black">
           {/* ✅ Email Field */}
           <div>
             <label className="block text-sm font-semibold text-black mb-2">
@@ -96,8 +97,8 @@ export default function VRF() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                         focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                         focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                          outline-none transition"
             />
           </div>
@@ -114,8 +115,8 @@ export default function VRF() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                           focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                            outline-none transition"
               />
             </div>
@@ -129,8 +130,8 @@ export default function VRF() {
                 value={formData.designation}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                           focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                            outline-none transition"
               >
                 <option value="">Select Designation</option>
@@ -157,8 +158,8 @@ export default function VRF() {
                 onChange={handleInputChange}
                 pattern="[0-9]{10}"
                 required
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                           focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                            outline-none transition"
               />
             </div>
@@ -172,8 +173,8 @@ export default function VRF() {
                 name="department"
                 value={formData.department}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                           focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                            outline-none transition"
               />
             </div>
@@ -191,8 +192,8 @@ export default function VRF() {
                 value={formData.companyName}
                 onChange={handleInputChange}
                 required={!isStudent}
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                           focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                           focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                            outline-none transition"
               />
             </div>
@@ -208,8 +209,8 @@ export default function VRF() {
                   value={formData.collegeName}
                   onChange={handleInputChange}
                   required={isStudent}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                             focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                              outline-none transition"
                 />
               </div>
@@ -223,8 +224,8 @@ export default function VRF() {
                   value={formData.course}
                   onChange={handleInputChange}
                   required={isStudent}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg 
-                             focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                             focus:border-teal-500 focus:ring-2 focus:ring-teal-200 
                              outline-none transition"
                 />
               </div>
@@ -236,13 +237,14 @@ export default function VRF() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-4 rounded-lg 
-                       font-semibold text-lg hover:bg-blue-700 hover:shadow-lg 
+            className="w-full bg-teal-600 text-white py-4 rounded-lg 
+                       font-semibold text-lg hover:bg-teal-700 hover:shadow-lg 
                        transition-all duration-200"
           >
             Submit Registration
           </button>
         </form>
+        </div>
       </div>
     </div>
   );

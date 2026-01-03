@@ -167,26 +167,27 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
   const displayed = meetings.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
-    <Box sx={{ p: 4 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
-        <Box>
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>
-            Meetings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Meetings with approved visitors — schedule or reject from here.
-          </Typography>
-        </Box>
+    <Box sx={{ minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'sans-serif', width: '100%' }}>
+      <Box sx={{ maxWidth: '100%', px: { xs: 2, sm: 3, lg: 6 }, py: 2 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
+          <Box>
+            <Typography variant="h4" sx={{ fontWeight: 700, color: '#1f2937' }}>
+              Meetings
+            </Typography>
+            <Typography variant="body2" sx={{ color: '#6b7280', mt: 0.5 }}>
+              Meetings with approved visitors — schedule or reject from here.
+            </Typography>
+          </Box>
 
-        <Box>
-          <Button startIcon={<RefreshIcon />} onClick={handleRefresh}>
-            Reset & Refresh
-          </Button>
-        </Box>
-      </Stack>
+          <Box>
+            <Button startIcon={<RefreshIcon />} onClick={handleRefresh} sx={{ color: '#1f2937' }}>
+              Reset & Refresh
+            </Button>
+          </Box>
+        </Stack>
 
-      {/* Filters */}
-      <Paper sx={{ p: 2, mb: 3 }}>
+        {/* Filters */}
+        <Paper sx={{ p: 2, mb: 3, backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={4}>
             <TextField
@@ -236,58 +237,59 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
               onClick={handleSearch}
               disabled={loading}
               fullWidth
+              sx={{ backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' } }}
             >
               Search
             </Button>
-            <Button variant="outlined" onClick={handleRefresh} disabled={loading}>
+            <Button variant="outlined" onClick={handleRefresh} disabled={loading} sx={{ borderColor: '#d1d5db', color: '#374151', '&:hover': { borderColor: '#9ca3af', backgroundColor: '#f9fafb' } }}>
               Clear
             </Button>
           </Grid>
         </Grid>
       </Paper>
 
-      {/* Content */}
-      <Paper sx={{ p: 2 }}>
+        {/* Content */}
+        <Paper sx={{ p: 2, backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}>
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
             <CircularProgress size={48} />
           </Box>
         ) : error ? (
           <Box sx={{ p: 4 }}>
-            <Typography color="error" sx={{ mb: 2 }}>
+            <Typography sx={{ mb: 2, color: '#dc2626' }}>
               {error}
             </Typography>
-            <Button variant="contained" onClick={fetchMeetings}>
+            <Button variant="contained" onClick={fetchMeetings} sx={{ backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' } }}>
               Retry
             </Button>
           </Box>
         ) : meetings.length === 0 ? (
           <Box sx={{ p: 6, textAlign: "center" }}>
-            <Typography variant="h6">No meetings found</Typography>
-            <Typography color="text.secondary">Try changing filters or refresh.</Typography>
+            <Typography variant="h6" sx={{ color: '#1f2937' }}>No meetings found</Typography>
+            <Typography sx={{ color: '#6b7280' }}>Try changing filters or refresh.</Typography>
           </Box>
         ) : (
           <>
             <TableContainer>
               <Table size="small">
                 <TableHead>
-                  <TableRow>
-                    <TableCell>Meeting</TableCell>
-                    <TableCell>Scheduled</TableCell>
-                    <TableCell>Purpose</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Host</TableCell>
-                    <TableCell>Visitor</TableCell>
-                    <TableCell align="center">Actions</TableCell>
+                  <TableRow sx={{ backgroundColor: '#0d9488' }}>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Meeting</TableCell>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Scheduled</TableCell>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Purpose</TableCell>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Status</TableCell>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Host</TableCell>
+                    <TableCell sx={{ color: '#ffffff', fontWeight: 600 }}>Visitor</TableCell>
+                    <TableCell align="center" sx={{ color: '#ffffff', fontWeight: 600 }}>Actions</TableCell>
                   </TableRow>
                 </TableHead>
 
                 <TableBody>
                   {displayed.map((m) => (
-                    <TableRow key={m.meeting_id} hover>
+                    <TableRow key={m.meeting_id} hover sx={{ '&:hover': { backgroundColor: '#f9fafb' } }}>
                       <TableCell>
-                        <Typography fontWeight={700}>#{m.meeting_id}</Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography fontWeight={700} sx={{ color: '#1f2937' }}>#{m.meeting_id}</Typography>
+                        <Typography variant="body2" sx={{ color: '#6b7280' }}>
                           created: {m.created_at ? new Date(m.created_at).toLocaleString() : "-"}
                         </Typography>
                       </TableCell>
@@ -323,30 +325,30 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
                       <TableCell>
                         {m.host ? (
                           <Box>
-                            <Typography fontWeight={700} noWrap>
+                            <Typography fontWeight={700} noWrap sx={{ color: '#1f2937' }}>
                               {m.host.full_name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" noWrap>
+                            <Typography variant="body2" noWrap sx={{ color: '#6b7280' }}>
                               {m.host.email}
                             </Typography>
                           </Box>
                         ) : (
-                          <Typography color="text.secondary">No host</Typography>
+                          <Typography sx={{ color: '#6b7280' }}>No host</Typography>
                         )}
                       </TableCell>
 
                       <TableCell>
                         {m.visitor ? (
                           <Box>
-                            <Typography fontWeight={700} noWrap>
+                            <Typography fontWeight={700} noWrap sx={{ color: '#1f2937' }}>
                               {m.visitor.name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary" noWrap>
+                            <Typography variant="body2" noWrap sx={{ color: '#6b7280' }}>
                               {m.visitor.email ?? "-"} • {m.visitor.phone ?? "-"}
                             </Typography>
                           </Box>
                         ) : (
-                          <Typography color="text.secondary">No visitor</Typography>
+                          <Typography sx={{ color: '#6b7280' }}>No visitor</Typography>
                         )}
                       </TableCell>
 
@@ -358,17 +360,18 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
                             startIcon={<EventAvailableIcon />}
                             onClick={() => confirmAction(m, "scheduled")}
                             disabled={m.processing || m.status === "scheduled"}
+                            sx={{ backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' }, '&:disabled': { backgroundColor: '#d1d5db' } }}
                           >
                             Schedule
                           </Button>
 
                           <Button
                             variant="outlined"
-                            color="error"
                             size="small"
                             startIcon={<CancelIcon />}
                             onClick={() => confirmAction(m, "rejected")}
                             disabled={m.processing || m.status === "rejected"}
+                            sx={{ borderColor: '#dc2626', color: '#dc2626', '&:hover': { borderColor: '#b91c1c', backgroundColor: '#fef2f2' }, '&:disabled': { borderColor: '#d1d5db', color: '#d1d5db' } }}
                           >
                             Reject
                           </Button>
@@ -406,11 +409,14 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeActionDialog}>Cancel</Button>
+          <Button onClick={closeActionDialog} sx={{ color: '#374151' }}>Cancel</Button>
           <Button
             variant="contained"
-            color={actionDialog.action === "scheduled" ? "primary" : "error"}
             onClick={() => performStatusUpdate(actionDialog.meeting.meeting_id, actionDialog.action)}
+            sx={actionDialog.action === "scheduled" 
+              ? { backgroundColor: '#0d9488', '&:hover': { backgroundColor: '#0f766e' } }
+              : { backgroundColor: '#dc2626', '&:hover': { backgroundColor: '#b91c1c' } }
+            }
           >
             {actionDialog.action === "scheduled" ? "Schedule" : "Reject"}
           </Button>
@@ -427,6 +433,7 @@ export default function MeetingsPageWithActions({ apiBase = import.meta.env.VITE
           {snack.message}
         </Alert>
       </Snackbar>
+      </Box>
     </Box>
   );
 }
