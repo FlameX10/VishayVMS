@@ -239,7 +239,7 @@ export default function ApprovedEmployees() {
           <span className="mx-1">{new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
           <span className="mx-2 text-gray-300">|</span>
           <Clock className="w-5 h-5" />
-          <span>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+          <span className="ml-1">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
           <User className="w-6 h-6 ml-4 text-teal-600" />
         </header>
 
