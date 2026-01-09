@@ -22,9 +22,10 @@ import CheckCircleOutline from "@mui/icons-material/CheckCircleOutline";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [step, setStep] = useState("email");
+  const [step, setStep] = useState("email"); // email | password
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [showForgot, setShowForgot] = useState(false);
 
   const navigate = useNavigate();
 
@@ -59,7 +60,7 @@ const Login = () => {
     }
   };
 
-  // 🔹 STEP 2: VERIFY PASSWORD + ROLE BASED REDIRECT
+  // 🔹 STEP 2: VERIFY PASSWORD
   const handleVerifyPassword = async () => {
     if (!password) {
       return setAlert({ type: "error", message: "Password is required!" });
@@ -67,6 +68,7 @@ const Login = () => {
 
     setLoading(true);
     setAlert(null);
+    setShowForgot(false);
 
     try {
       const res = await axios.post(
@@ -76,13 +78,12 @@ const Login = () => {
 
       const { token, user } = res.data;
 
-      // Save auth data
       localStorage.setItem("authToken", token);
       localStorage.setItem("user", JSON.stringify(user));
 
       setAlert({ type: "success", message: "Login successful!" });
 
-      // 🔥 ROLE → ROUTE MAP
+      // 🔥 ROLE → ROUTE
       const roleRouteMap = {
         process_admin: "/pad",
         he: "/hed",
@@ -90,14 +91,16 @@ const Login = () => {
         sg: "/sgd",
       };
 
-      const redirectPath = roleRouteMap[user.role] || "/";
-      navigate(redirectPath);
-
+      navigate(roleRouteMap[user.role] || "/");
     } catch (err) {
-      setAlert({
-        type: "error",
-        message: err.response?.data?.message || "Login failed",
-      });
+      const message = err.response?.data?.message || "Login failed";
+
+      setAlert({ type: "error", message });
+
+      // 👇 Show forgot password only for wrong password
+      if (message.toLowerCase().includes("password")) {
+        setShowForgot(true);
+      }
     } finally {
       setLoading(false);
     }
@@ -195,6 +198,26 @@ const Login = () => {
             >
               {loading ? <CircularProgress size={22} /> : "Login"}
             </Button>
+
+            {/* 👇 FORGOT PASSWORD (only when wrong password) */}
+            {showForgot && (
+              <Typography
+                sx={{
+                  mt: 2,
+                  textAlign: "right",
+                  color: "primary.main",
+                  cursor: "pointer",
+                  fontWeight: 500,
+                }}
+                onClick={() =>
+                  navigate("/change/password", {
+                    state: { email },
+                  })
+                }
+              >
+                Forgot password?
+              </Typography>
+            )}
           </>
         )}
       </Paper>
